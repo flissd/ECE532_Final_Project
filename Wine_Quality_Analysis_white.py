@@ -54,15 +54,14 @@ def kmeans_algorithm(x,k):
         assignments[i,int(temp[i])] = 1
     return assignments,error
 
-def pgd_l1(x,y):
-    lam = 0.05
+def pgd_l1(x,y,lam=0.05):
     clf = linear_model.Lasso(alpha=lam)
     clf.fit(x,y)
     w = clf.coef_
     return w.reshape((len(w),1))
 
 #import the data from csv file
-data = np.genfromtxt('./winequality-red.csv',delimiter=';')
+data = np.genfromtxt('./winequality-white.csv',delimiter=';')
 data = data[1:] #get rid of first row (all 'nan' because they were text titles)
 
 #separate the features and the quality
@@ -70,8 +69,9 @@ rd = data[:,len(data[0])-1].reshape((len(data),1)) #quality
 rw = data[:,:len(data[0])-1] #features
 
 #split data into sets
-indices = np.array([[0,99],[100,199],[200,299],[300,399],[400,499],[500,599],[600,699],[700,799],[800,899],[900,999],[1000,1099],
-           [1100,1199],[1200,1299],[1300,1399],[1400,1499],[1500,1598]])
+indices = np.array([[0,305],[306,611],[612,917],[918,1223],[1224,1529],[1530,1835],[1836,2141],[2142,2447],
+                    [2447,2753],[2754,3059],[3060,3365],[3366,3671],[3672,3977],[3978,4283],[4284,4589],
+                    [4589,4897]])
 num_i = len(indices)
 
 
